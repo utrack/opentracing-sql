@@ -21,7 +21,7 @@ func SaveQuery(f SpanNameFunc) func(*tracingDriver) {
 }
 
 // WithSpanObserver allows you to modify the span's tags for every span created.
-func WithSpanObserver(obsFunc func(context.Context, opentracing.Span)) func(*tracingDriver) {
+func WithSpanObserver(obsFunc func(context.Context, opentracing.Span, string)) func(*tracingDriver) {
 	return func(d *tracingDriver) {
 		d.tracer.observerFunc = obsFunc
 	}

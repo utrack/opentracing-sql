@@ -31,7 +31,7 @@ type SpanNameFunc func(context.Context) string
 type tracer struct {
 	t            opentracing.Tracer
 	nameFunc     SpanNameFunc
-	observerFunc func(context.Context, opentracing.Span)
+	observerFunc func(context.Context, opentracing.Span, string)
 	saveQuery    bool
 }
 
@@ -45,7 +45,7 @@ func (t *tracer) newSpan(ctx context.Context) opentracing.Span {
 	}
 	span := t.t.StartSpan(name, opts...)
 	if t.observerFunc != nil {
-		t.observerFunc(ctx, span)
+		t.observerFunc(ctx, span, name)
 	}
 	return span
 }
